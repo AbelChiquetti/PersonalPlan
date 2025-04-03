@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+// Tipo correto para os parâmetros das rotas dinâmicas no Next.js 15
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
+export async function GET(request: NextRequest, { params }: Props) {
   try {
     const id = params.id;
 
@@ -29,10 +33,7 @@ export async function GET(
   }
 }
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(request: NextRequest, { params }: Props) {
   try {
     const id = params.id;
     const body = await request.json();
@@ -63,10 +64,7 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: NextRequest, { params }: Props) {
   try {
     const id = params.id;
 
