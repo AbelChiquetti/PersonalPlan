@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 // Declare PrismaClient no escopo global
 declare global {
-  var prisma: PrismaClient | undefined;
+  let prisma: PrismaClient | undefined;
 }
 
 // Use o cliente existente se já foi definido (desenvolvimento)
