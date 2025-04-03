@@ -4,8 +4,19 @@ export async function GET() {
   try {
     // Utilizando a API do Awesomeapi para cotação do dólar (gratuita e sem necessidade de chave)
     const response = await fetch(
-      "https://economia.awesomeapi.com.br/last/USD-BRL"
+      "https://economia.awesomeapi.com.br/last/USD-BRL",
+      {
+        next: { revalidate: 3600 }, // Revalidar a cada hora
+      }
     );
+
+    if (!response.ok) {
+      return NextResponse.json(
+        { error: "API externa retornou status " + response.status },
+        { status: 500 }
+      );
+    }
+
     const data = await response.json();
 
     if (!data || !data.USDBRL) {
