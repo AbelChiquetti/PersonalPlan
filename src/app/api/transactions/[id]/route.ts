@@ -8,9 +8,12 @@ type Props = {
   };
 };
 
-export async function GET(request: NextRequest, { params }: Props) {
+export async function GET(
+  request: NextRequest,
+  context: { params: { id: string } }
+) {
   try {
-    const id = params.id;
+    const id = context.params.id;
 
     const transaction = await prisma.transaction.findUnique({
       where: { id },
@@ -33,9 +36,12 @@ export async function GET(request: NextRequest, { params }: Props) {
   }
 }
 
-export async function PUT(request: NextRequest, { params }: Props) {
+export async function PUT(
+  request: NextRequest,
+  context: { params: { id: string } }
+) {
   try {
-    const id = params.id;
+    const id = context.params.id;
     const body = await request.json();
 
     const { description, amount, currency, category, type, isRecurring, date } =
@@ -64,9 +70,12 @@ export async function PUT(request: NextRequest, { params }: Props) {
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: Props) {
+export async function DELETE(
+  request: NextRequest,
+  context: { params: { id: string } }
+) {
   try {
-    const id = params.id;
+    const id = context.params.id;
 
     await prisma.transaction.delete({
       where: { id },
