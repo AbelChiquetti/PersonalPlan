@@ -1,13 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-// Tipo correto para os parâmetros das rotas dinâmicas no Next.js 15
-type Props = {
-  params: {
-    id: string;
-  };
-};
-
 export async function GET(
   request: NextRequest,
   context: { params: { id: string } }
